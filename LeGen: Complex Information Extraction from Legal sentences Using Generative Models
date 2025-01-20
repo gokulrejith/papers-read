@@ -1,0 +1,50 @@
+LeGen: Complex Information Extraction from Legal sentences Using Generative Models
+Paper: https://aclanthology.org/2024.nllp-1.1.pdf
+
+What does this paper accomplish?
+Performs complex information extraction from legal sentences. 
+
+For instance:
+Example Sentence:
+"If the balance amount in the account of a deceased is higher than 150,000, then the nominee or legal heir has to prove the identity to claim the amount."
+
+Step 1: Identify Clauses
+LeGen first breaks the sentence into clauses (atomic parts of the sentence). For the example sentence, the clauses are:
+
+Clause 1: "If the balance amount in the account of a deceased is higher than 150,000"
+
+Clause 2: "then the nominee has to prove the identity to claim the amount"
+
+Clause 3: "or legal heir has to prove the identity to claim the amount"
+
+Step 2: Identify Relationships
+Next, LeGen identifies the relationships between the clauses. In this case:
+
+Clause 1 and Clause 2 are connected by a CONDITION relationship (the "if-then" structure).
+
+Clause 2 and Clause 3 are connected by a DISJUNCTION relationship (the "or" structure).
+
+Step 3: Generate Discourse Tree
+LeGen constructs a discourse tree to represent the hierarchical structure of the sentence. The tree looks like this:
+
+CONDITION(
+    "If the balance amount in the account of a deceased is higher than 150,000",
+    DISJUNCTION(
+        "then the nominee has to prove the identity to claim the amount",
+        "or legal heir has to prove the identity to claim the amount"
+    )
+)
+
+Step 4: Linear Encoding
+The discourse tree is then converted into a linear encoding for easier processing. The encoding for this example would look like:
+
+CONDITION(Clause1, DISJUNCTION(Clause2, Clause3))
+
+
+Step 5: Output
+The final output from LeGen would be a structured representation of the sentence, capturing both the clauses and the relationships between them. This structured output can be used to build a legal knowledge graph or to power a question-answering system.
+
+How does this work accomplish all this?
+Fine-tuning LLMs
+Prompting LLMs.
+A new custom loss function for reducing hallucination in legal context. 
